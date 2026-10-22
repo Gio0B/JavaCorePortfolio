@@ -1,0 +1,20 @@
+
+# File Java compilati
+*.class
+bin/
+
+# File generati
+target/
+build/
+out/
+
+# Configurazioni locali di Eclipse / STS
+.metadata/
+.settings/
+.project
+.classpath
+
+# File del sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
