@@ -39,7 +39,19 @@ public class Main {
 		System.out.println(PalindromeChecker.palindromeChecker("home"));
 		System.out.println(PalindromeChecker.palindromeChecker("Radar"));
 		
+		System.out.println("==========================");
 		
+		//test for arrayAnalizer()
+		
+		int[] numbers = {4, 8, 2, 8, 10, 3};
+		
+		System.out.println(ArrayAnalyzer.calculateAverage(numbers));
+		System.out.println(ArrayAnalyzer.countOccurrences(numbers, 8));
+		System.out.println(ArrayAnalyzer.findMax(numbers));
+		System.out.println(ArrayAnalyzer.findMin(numbers));
+		
+		System.out.println("==========================");
+
 	}
 
 }

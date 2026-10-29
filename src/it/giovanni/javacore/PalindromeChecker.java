@@ -4,7 +4,7 @@ public class PalindromeChecker {
 	
 	public static boolean palindromeChecker(String word) {
 		
-		// Using toLowerCase() allows the user to enter words with uppercase letters.
+		// Using toLowerCase() allows the user to enter words with upper case letters without comprising the checking.
 		word = word.toLowerCase();
 		
 		for (int i = 0; i < word.length() / 2; i++) {
