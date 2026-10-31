@@ -51,7 +51,30 @@ public class Main {
 		System.out.println(ArrayAnalyzer.findMin(numbers));
 		
 		System.out.println("==========================");
+		
+		//test BankAccount class
+		
+		System.out.println("Printing test for BankAccount Class");
 
+		BankAccount account = new BankAccount("Mario", 100.0);
+
+		System.out.println(account.getOwner());
+		System.out.println(account.getBalance());
+
+		System.out.println(account.deposit(50));
+		System.out.println(account.getBalance());
+
+		System.out.println(account.withdraw(30));
+		System.out.println(account.getBalance());
+
+		// Test invalid operations
+		// System.out.println(account.withdraw(500));
+		// System.out.println(account.deposit(0));
+		// System.out.println(account.withdraw(-10));
+
+		System.out.println(account.toString());
+
+		System.out.println("==========================");
 	}
 
 }
