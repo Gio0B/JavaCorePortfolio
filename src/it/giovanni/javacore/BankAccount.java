@@ -24,7 +24,7 @@ public class BankAccount {
 			throw new IllegalArgumentException("You cannot deposit a negative amount of money or no money at all!");
 		}
 		
-		this.balance = this.balance + amount;
+		this.balance += amount;
 		return true;
 	}
 	
@@ -36,7 +36,7 @@ public class BankAccount {
 			throw new IllegalArgumentException("You cannot withdraw more money than you have!");
 		}
 		
-		this.balance = this.balance - amount;
+		this.balance -= amount;
 		
 		return true;
 	}

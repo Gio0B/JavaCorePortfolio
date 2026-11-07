@@ -1,5 +1,7 @@
 package it.giovanni.javacore;
 
+import java.util.IllegalFormatException;
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -66,15 +68,53 @@ public class Main {
 
 		System.out.println(account.withdraw(30));
 		System.out.println(account.getBalance());
+		System.out.println("Final balance: " + account.getBalance());
 
 		// Test invalid operations
-		// System.out.println(account.withdraw(500));
-		// System.out.println(account.deposit(0));
-		// System.out.println(account.withdraw(-10));
+		
+		try {
+			account.withdraw(500);
+		} catch (IllegalArgumentException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		try {
+			account.deposit(0);
+		} catch (IllegalArgumentException e) {
+			System.out.println(e.getMessage());
+		}
+
+
+		try {
+			account.withdraw(-10);
+		} catch (IllegalArgumentException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		try {
+			BankAccount testAccount = new BankAccount("", 10.0);
+		} catch (IllegalArgumentException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		testInvalidAccount("", 10);
+		testInvalidAccount("Mario", -50);
+		testInvalidAccount(null, 100);
 
 		System.out.println(account.toString());
 
 		System.out.println("==========================");
+	}
+	
+	//test bank account with reusable methods
+	
+	private static void testInvalidAccount(String owner, double balance) {
+	    try {
+	        BankAccount testAccount = new BankAccount(owner, balance);
+	        System.out.println("Account created successfully: " + testAccount);
+	    } catch (IllegalArgumentException e) {
+	        System.out.println("Account creation failed: " + e.getMessage());
+	    }
 	}
 
 }
