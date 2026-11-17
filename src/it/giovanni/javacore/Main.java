@@ -195,6 +195,201 @@ public class Main {
 		System.out.println("Empty student list: " + emptyManager.getAllStudents());
 		// Expected: []
 		
+		System.out.println("==========================");
+		
+		//Testing Contact and ContactManager
+		
+		System.out.println("Testing Contact and ContactManager");
+		
+		// Create a new contact manager
+		ContactManager contactManager = new ContactManager();
+
+		// Create contacts
+		Contact contact1 = new Contact("Mario Rossi", "333111222", "mario@email.com");
+		Contact contact2 = new Contact("Luca Bianchi", "333444555", "luca@email.com");
+		Contact contact3 = new Contact("Anna Verdi", "333666777", "anna@email.com");
+
+		// Add contacts to the manager
+		contactManager.addContact(contact1);
+		contactManager.addContact(contact2);
+		contactManager.addContact(contact3);
+
+		System.out.println("Initial contact count: " + contactManager.getContactCount());
+		// Expected: 3
+
+		System.out.println("All contacts: " + contactManager.getAllContacts());
+		// Expected: All three contacts
+		
+		// Search for an existing contact by name
+		System.out.println("Search by name: " + contactManager.findContactByName("Mario Rossi"));
+		// Expected: Contact [name=Mario Rossi, phoneNumber=333111222, email=mario@email.com]
+
+		// Search for a non-existent contact by name
+		System.out.println("Search for missing contact: " + contactManager.findContactByName("Paolo Neri"));
+		// Expected: null
+
+		// Search for an existing contact by phone number
+		System.out.println("Search by phone: " + contactManager.findContactByPhone("333444555"));
+		// Expected: Luca Bianchi
+
+		// Search for a non-existent phone number
+		System.out.println("Search for missing phone: " + contactManager.findContactByPhone("000000000"));
+		// Expected: null
+		
+		// Update an existing contact's phone number
+		contactManager.updatePhoneNumber("Mario Rossi", "333999888");
+
+		System.out.println("Updated contact: " + contactManager.findContactByName("Mario Rossi"));
+		// Expected: Mario Rossi, phoneNumber=333999888
+
+		// Verify the new phone number
+		System.out.println("Search using new phone: " + contactManager.findContactByPhone("333999888"));
+		// Expected: Mario Rossi
+
+		// Verify the old phone number is no longer assigned
+		System.out.println("Search using old phone: " + contactManager.findContactByPhone("333111222"));
+		// Expected: null
+		
+		// Remove an existing contact
+		contactManager.removeContact("Luca Bianchi");
+
+		System.out.println("Contact count after removal: " + contactManager.getContactCount());
+		// Expected: 2
+
+		System.out.println("Search removed contact: " + contactManager.findContactByName("Luca Bianchi"));
+		// Expected: null
+
+		System.out.println("Remaining contacts: " + contactManager.getAllContacts());
+		// Expected: Mario Rossi and Anna Verdi
+		
+		// Try to add a contact with an existing name
+		try {
+			contactManager.addContact(new Contact("Mario Rossi", "333000111", "new@email.com"));
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Duplicate name rejected: " + e.getMessage());
+		}
+
+		// Try to add a contact with an existing phone number
+		try {
+			contactManager.addContact(new Contact("Giulia Neri", "333999888", "giulia@email.com"));
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Duplicate phone number rejected: " + e.getMessage());
+		}
+
+		// Try to add a null contact
+		try {
+			contactManager.addContact(null);
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Null contact rejected: " + e.getMessage());
+		}
+		
+		// Try to search using an empty name
+		try {
+			contactManager.findContactByName("");
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Empty name rejected: " + e.getMessage());
+		}
+
+		// Try to search using a null name
+		try {
+			contactManager.findContactByName(null);
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Null name rejected: " + e.getMessage());
+		}
+
+		// Try to search using an empty phone number
+		try {
+			contactManager.findContactByPhone("");
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Empty phone number rejected: " + e.getMessage());
+		}
+
+		// Try to search using a null phone number
+		try {
+			contactManager.findContactByPhone(null);
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Null phone number rejected: " + e.getMessage());
+		}
+		
+		// Try to update a non-existent contact
+		try {
+			contactManager.updatePhoneNumber("Unknown Contact", "333123456");
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Missing contact update rejected: " + e.getMessage());
+		}
+
+		// Try to assign an already existing phone number
+		try {
+			contactManager.updatePhoneNumber("Mario Rossi", "333666777");
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Duplicate phone update rejected: " + e.getMessage());
+		}
+
+		// Try to update using an empty phone number
+		try {
+			contactManager.updatePhoneNumber("Mario Rossi", "");
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Empty phone number rejected: " + e.getMessage());
+		}
+
+		// Try to update using a null phone number
+		try {
+			contactManager.updatePhoneNumber("Mario Rossi", null);
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Null phone number rejected: " + e.getMessage());
+		}
+		
+		// Get a copy of the contact list
+		ArrayList<Contact> contactCopy = contactManager.getAllContacts();
+
+		// Clear the copied list
+		contactCopy.clear();
+
+		System.out.println("Copied list after clearing: " + contactCopy);
+		// Expected: []
+
+		System.out.println("Original contact count: " + contactManager.getContactCount());
+		// Expected: 2
+
+		System.out.println("Original contact list: " + contactManager.getAllContacts());
+		// Expected: Mario Rossi and Anna Verdi
+		
+		// Try to create a contact with an empty name
+		try {
+		    new Contact("", "333111222", "test@email.com");
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Empty contact name rejected: " + e.getMessage());
+		}
+
+		// Try to create a contact with a null phone number
+		try {
+		    new Contact("Test User", null, "test@email.com");
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Null contact phone rejected: " + e.getMessage());
+		}
+
+		// Try to create a contact with an empty email
+		try {
+		    new Contact("Test User", "333111222", "");
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Empty contact email rejected: " + e.getMessage());
+		}
+
+		// Test phone number validation
+		try {
+		    contact1.setPhoneNumber("");
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Invalid phone number rejected: " + e.getMessage());
+		}
+
+		// Test email validation
+		try {
+		    contact1.setEmail(null);
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Invalid email rejected: " + e.getMessage());
+		}
+		
+		
 	}
 	
 	//test bank account with reusable methods
@@ -207,5 +402,6 @@ public class Main {
 	        System.out.println("Account creation failed: " + e.getMessage());
 	    }
 	}
+
 
 }
