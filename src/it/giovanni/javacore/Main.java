@@ -389,6 +389,237 @@ public class Main {
 		    System.out.println("Invalid email rejected: " + e.getMessage());
 		}
 		
+		System.out.println("==========================");
+		
+		//Testing for Product and InventoryManager classes
+		
+		System.out.println("Testing Product and InventoryManager\n");
+
+		InventoryManager inventory = new InventoryManager();
+
+		Product product1 = new Product("P001", "Laptop", 899.99, 5);
+		Product product2 = new Product("P002", "Mouse", 24.99, 20);
+		Product product3 = new Product("P003", "Keyboard", 59.99, 10);
+		Product product4 = new Product("P004", "Monitor", 199.99, 0);
+
+		inventory.addProduct(product1);
+		inventory.addProduct(product2);
+		inventory.addProduct(product3);
+		inventory.addProduct(product4);
+
+		System.out.println("Initial product count: " + inventory.getTotalProducts());
+		// Expected: 4
+
+		System.out.println("All products: " + inventory.getAllProducts());
+		// Expected: all four products
+		
+		System.out.println("\n--- Search tests ---");
+
+		System.out.println("Search by ID: " + inventory.findProductById("P001"));
+		// Expected: Laptop
+
+		System.out.println("Search by name: " + inventory.findProductByName("Mouse"));
+		// Expected: Mouse
+
+		System.out.println("Search missing ID: " + inventory.findProductById("P999"));
+		// Expected: null
+
+		System.out.println("Search missing name: " + inventory.findProductByName("Tablet"));
+		// Expected: null
+		
+		System.out.println("\n--- Update tests ---");
+
+		inventory.updateProductPrice("P001", 999.99);
+
+		System.out.println("Updated product price: " + inventory.findProductById("P001"));
+		// Expected: price=999.99
+
+		inventory.updateProductQuantity("P002", 30);
+
+		System.out.println("Updated product quantity: " + inventory.findProductById("P002"));
+		// Expected: quantity=30
+
+		inventory.updateProductQuantity("P004", 10);
+
+		System.out.println("Updated zero quantity product: " + inventory.findProductById("P004"));
+		// Expected: quantity=10
+		
+		System.out.println("\n--- Removal tests ---");
+
+		inventory.removeProduct("P003");
+
+		System.out.println("Product count after removal: " + inventory.getTotalProducts());
+		// Expected: 3
+
+		System.out.println("Search removed product: " + inventory.findProductById("P003"));
+		// Expected: null
+
+		System.out.println("Remaining products: " + inventory.getAllProducts());
+		// Expected: Laptop, Mouse, Monitor
+		
+		System.out.println("\n--- Invalid insertion tests ---");
+
+		try {
+		    inventory.addProduct(new Product("P001", "New Laptop", 500.00, 3));
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Duplicate ID rejected: " + e.getMessage());
+		}
+
+		try {
+		    inventory.addProduct(null);
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Null product rejected: " + e.getMessage());
+		}
+		
+		System.out.println("\n--- Invalid search tests ---");
+
+		try {
+		    inventory.findProductById("");
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Empty ID rejected: " + e.getMessage());
+		}
+
+		try {
+		    inventory.findProductById(null);
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Null ID rejected: " + e.getMessage());
+		}
+
+		try {
+		    inventory.findProductByName("");
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Empty name rejected: " + e.getMessage());
+		}
+
+		try {
+		    inventory.findProductByName(null);
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Null name rejected: " + e.getMessage());
+		}
+		
+		System.out.println("\n--- Invalid update tests ---");
+
+		try {
+		    inventory.updateProductPrice("P999", 100.00);
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Missing product price update rejected: " + e.getMessage());
+		}
+
+		try {
+		    inventory.updateProductQuantity("P999", 10);
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Missing product quantity update rejected: " + e.getMessage());
+		}
+
+		try {
+		    inventory.updateProductPrice("P001", -10);
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Negative price rejected: " + e.getMessage());
+		}
+
+		try {
+		    inventory.updateProductPrice("P001", Double.NaN);
+		} catch (IllegalArgumentException e) {
+		    System.out.println("NaN price rejected: " + e.getMessage());
+		}
+
+		try {
+		    inventory.updateProductPrice("P001", Double.POSITIVE_INFINITY);
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Infinite price rejected: " + e.getMessage());
+		}
+
+		try {
+		    inventory.updateProductQuantity("P001", -5);
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Negative quantity rejected: " + e.getMessage());
+		}
+		
+		System.out.println("\n--- Invalid removal tests ---");
+
+		try {
+		    inventory.removeProduct("P999");
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Missing product removal rejected: " + e.getMessage());
+		}
+
+		try {
+		    inventory.removeProduct("");
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Empty ID removal rejected: " + e.getMessage());
+		}
+
+		try {
+		    inventory.removeProduct(null);
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Null ID removal rejected: " + e.getMessage());
+		}
+		
+		System.out.println("\n--- Product validation tests ---");
+
+		try {
+		    new Product("", "Laptop", 500.00, 5);
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Empty product ID rejected: " + e.getMessage());
+		}
+
+		try {
+		    new Product("P010", "", 500.00, 5);
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Empty product name rejected: " + e.getMessage());
+		}
+
+		try {
+		    new Product("P010", "Laptop", -10, 5);
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Negative product price rejected: " + e.getMessage());
+		}
+
+		try {
+		    new Product("P010", "Laptop", 500, -1);
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Negative product quantity rejected: " + e.getMessage());
+		}
+
+		try {
+		    new Product("P010", "Laptop", Double.NaN, 5);
+		} catch (IllegalArgumentException e) {
+		    System.out.println("NaN constructor price rejected: " + e.getMessage());
+		}
+
+		try {
+		    product1.setPrice(0);
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Invalid setter price rejected: " + e.getMessage());
+		}
+
+		try {
+		    product1.setQuantity(-1);
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Invalid setter quantity rejected: " + e.getMessage());
+		}
+		
+		System.out.println("\n--- Inventory value test ---");
+
+		System.out.println("Total inventory value: " + inventory.getTotalInventoryValue());
+		// Expected: 899.99 * 5 + 24.99 * 30 + 199.99 * 10
+		// Expected: 6749.45
+		
+		System.out.println("\n--- Defensive copy test ---");
+
+		ArrayList<Product> productCopy = inventory.getAllProducts();
+
+		productCopy.clear();
+
+		System.out.println("Copied list after clearing: " + productCopy);
+		// Expected: []
+
+		System.out.println("Original product count: " + inventory.getTotalProducts());
+		// Expected: 3
+
+		System.out.println("Original product list: " + inventory.getAllProducts());
+		// Expected: original products still present
+		
 		
 	}
 	

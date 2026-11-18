@@ -9,7 +9,7 @@ public class Product {
 	
 	public Product(String id, String name, double price, int quantity) {
 		
-		if (id == null || id.isBlank() || name == null || name.isBlank() || price <= 0 || quantity <= 0) {
+		if (id == null || id.isBlank() || name == null || name.isBlank() || price <= 0 || !Double.isFinite(price) || quantity < 0) {
 			throw new IllegalArgumentException("Check if all the elements of the item are right");
 		}
 		
@@ -26,7 +26,7 @@ public class Product {
 
 	public void setPrice(double price) {
 		
-		if (price <=0 ) {
+		if (price <=0 || !Double.isFinite(price)) {
 			throw new IllegalArgumentException("the price has to be greater than 0");
 		}
 		
@@ -39,8 +39,8 @@ public class Product {
 
 	public void setQuantity(int quantity) {
 		
-		if (price <=0 ) {
-			throw new IllegalArgumentException("the item to add has to be at least 1");
+		if (quantity < 0 ) {
+			throw new IllegalArgumentException("Quantity cannot be negative!");
 		}
 		
 		this.quantity = quantity;
