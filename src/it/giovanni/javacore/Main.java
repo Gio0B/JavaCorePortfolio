@@ -68,7 +68,7 @@ public class Main {
 		System.out.println(account.withdraw(30));
 		System.out.println(account.getBalance());
 		System.out.println("Final balance: " + account.getBalance());
-
+		
 		// Test invalid operations
 		
 		try {
@@ -88,6 +88,14 @@ public class Main {
 			account.withdraw(-10);
 		} catch (IllegalArgumentException e) {
 			System.out.println(e.getMessage());
+		}
+		
+		// Test deposit overflow
+		try {
+		    BankAccount account2 = new BankAccount("Test", Double.MAX_VALUE);
+		    account2.deposit(Double.MAX_VALUE);
+		} catch (IllegalArgumentException e) {
+		    System.out.println("Deposit overflow rejected: " + e.getMessage());
 		}
 		
 		testInvalidAccount("", 10);
@@ -376,15 +384,16 @@ public class Main {
 		}
 
 		// Test phone number validation
+		// Test phone number validation
 		try {
-		    contact1.setPhoneNumber("");
+		    contactManager.updatePhoneNumber("Mario Rossi", "");
 		} catch (IllegalArgumentException e) {
 		    System.out.println("Invalid phone number rejected: " + e.getMessage());
 		}
 
 		// Test email validation
 		try {
-		    contact1.setEmail(null);
+		    contactManager.updateEmail("Mario Rossi", null);
 		} catch (IllegalArgumentException e) {
 		    System.out.println("Invalid email rejected: " + e.getMessage());
 		}
@@ -603,7 +612,8 @@ public class Main {
 
 		System.out.println("Total inventory value: " + inventory.getTotalInventoryValue());
 		// Expected: 899.99 * 5 + 24.99 * 30 + 199.99 * 10
-		// Expected: 6749.45
+		// Expected: 7749.55
+		
 		
 		System.out.println("\n--- Defensive copy test ---");
 

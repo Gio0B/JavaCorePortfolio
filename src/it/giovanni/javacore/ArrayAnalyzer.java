@@ -4,6 +4,10 @@ public class ArrayAnalyzer {
 	
 	public static int findMax(int[] numbers) {
 		
+		if (numbers == null || numbers.length == 0) {
+			throw new IllegalArgumentException("Insert a valid array!");
+		}
+		
 		int max = numbers[0];
 		
 		for(int i = 0; i < numbers.length; i++) {
@@ -16,6 +20,10 @@ public class ArrayAnalyzer {
 	
 	public static int findMin(int[] numbers) {
 		
+		if (numbers == null || numbers.length == 0) {
+			throw new IllegalArgumentException("Insert a valid array!");
+		}
+		
 		int min = numbers[0];
 		
 		for(int i = 0; i < numbers.length; i++){
@@ -27,6 +35,10 @@ public class ArrayAnalyzer {
 	}
 	
 	public static double calculateAverage(int[] numbers) {
+		
+		if (numbers == null || numbers.length == 0) {
+			throw new IllegalArgumentException("Insert a valid array!");
+		}
 		
 		double avg = 0;
 		
@@ -41,6 +53,10 @@ public class ArrayAnalyzer {
 	}
 	
 	public static int countOccurrences(int[] numbers, int target) {
+		
+		if (numbers == null || numbers.length == 0) {
+			throw new IllegalArgumentException("Insert a valid array!");
+		}
 		
 		int rep = 0;
 		

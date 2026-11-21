@@ -9,20 +9,20 @@ public class NumberAnalyzer {
 	
 	//function to see the sum of a number's digits
 	public static int sumDigits(int n) {
-		
-		if(n == 0) {
-			return 0;
-		}
-		
-		int sum = 0;
-		
-		while(n > 0) {
-			int x = n % 10;
-			sum = sum + x;
-			n = n / 10;
-		}
-		
-		return sum;
+
+	    if (n == 0) {
+	        return 0;
+	    }
+
+	    int sum = 0;
+
+	    while (n != 0) {
+	        int x = Math.abs(n % 10);
+	        sum = sum + x;
+	        n = n / 10;
+	    }
+
+	    return sum;
 	}
 	
 	//function to see how many digits a number have
@@ -34,7 +34,7 @@ public class NumberAnalyzer {
 			return 1;
 		}
 		
-		while (n > 0) {
+		while (n != 0) {
 			n = n / 10;
 			sum ++;
 		}

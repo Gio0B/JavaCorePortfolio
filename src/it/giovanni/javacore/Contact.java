@@ -1,61 +1,47 @@
+
 package it.giovanni.javacore;
 
 public class Contact {
-	
-	private String name;
-	private String phoneNumber;
-	private String email;
-	
-	public Contact(String name, String phoneNumber, String email) {
-		
-		if (name == null || name.isBlank()) {
-			throw new IllegalArgumentException("The contact has to have a name!");
-		}else if (phoneNumber == null || phoneNumber.isBlank()) {
-			throw new IllegalArgumentException("The contact has to have a phone number!");
-		}else if (email == null || email.isBlank()) {
-			throw new IllegalArgumentException("The contact has to have an email!");
-		}
-		
-		this.name = name;
-		this.phoneNumber = phoneNumber;
-		this.email = email;
-	}
 
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
+    private final String name;
+    private final String phoneNumber;
+    private final String email;
 
-	public void setPhoneNumber(String phoneNumber) {
-		
-		if (phoneNumber == null || phoneNumber.isBlank()) {
-			throw new IllegalArgumentException("The contact has to have a phone number!");
-		}
-		
-		this.phoneNumber = phoneNumber;
-	}
+    public Contact(String name, String phoneNumber, String email) {
 
-	public String getEmail() {
-		return email;
-	}
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Invalid name!");
+        }
 
-	public void setEmail(String email) {
-		
-		if (email == null || email.isBlank()) {
-			throw new IllegalArgumentException("The contact has to have an email!");
-		}
-		
-		this.email = email;
-	}
+        if (phoneNumber == null || phoneNumber.isBlank()) {
+            throw new IllegalArgumentException("Invalid phone number!");
+        }
 
-	public String getName() {
-		return name;
-	}
+        if (email == null || email.isBlank()) {
+            throw new IllegalArgumentException("Invalid email!");
+        }
 
-	@Override
-	public String toString() {
-		return "Contact [name=" + name + ", phoneNumber=" + phoneNumber + ", email=" + email + "]";
-	}
-	
-	
-	
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    @Override
+    public String toString() {
+        return "Contact [name=" + name
+                + ", phoneNumber=" + phoneNumber
+                + ", email=" + email + "]";
+    }
 }

@@ -4,6 +4,10 @@ public class PalindromeChecker {
 	
 	public static boolean palindromeChecker(String word) {
 		
+		if (word == null || word.isBlank()) {
+			throw new IllegalArgumentException("Insert a valid word!");
+		}
+		
 		// Using toLowerCase() allows the user to enter words with upper case letters without comprising the checking.
 		word = word.toLowerCase();
 		

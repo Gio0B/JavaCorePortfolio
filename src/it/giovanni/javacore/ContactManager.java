@@ -11,29 +11,31 @@ public class ContactManager {
         contacts = new ArrayList<>();
     }
 
+    // Add a new contact
     public void addContact(Contact contact) {
 
         if (contact == null) {
             throw new IllegalArgumentException("Contact cannot be null!");
         }
 
-        for (Contact contactList : contacts) {
+        for (Contact c : contacts) {
+            if (c.getName().equalsIgnoreCase(contact.getName())) {
+                throw new IllegalArgumentException("Contact name already exists!");
+            }
 
-            if (contactList.getName().equals(contact.getName())
-                    || contactList.getPhoneNumber().equals(contact.getPhoneNumber())) {
-
-                throw new IllegalArgumentException(
-                    "This person or this number is already in your contact list!");
+            if (c.getPhoneNumber().equals(contact.getPhoneNumber())) {
+                throw new IllegalArgumentException("Phone number already exists!");
             }
         }
 
         contacts.add(contact);
     }
 
+    // Remove a contact by name
     public void removeContact(String name) {
 
         if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("Insert a valid name!");
+            throw new IllegalArgumentException("Invalid name!");
         }
 
         Contact contact = findContactByName(name);
@@ -45,15 +47,15 @@ public class ContactManager {
         contacts.remove(contact);
     }
 
+    // Find a contact by name
     public Contact findContactByName(String name) {
 
         if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("Insert a valid name!");
+            throw new IllegalArgumentException("Invalid name!");
         }
 
         for (Contact contact : contacts) {
-
-            if (contact.getName().equals(name)) {
+            if (contact.getName().equalsIgnoreCase(name)) {
                 return contact;
             }
         }
@@ -61,14 +63,14 @@ public class ContactManager {
         return null;
     }
 
+    // Find a contact by phone number
     public Contact findContactByPhone(String phoneNumber) {
 
         if (phoneNumber == null || phoneNumber.isBlank()) {
-            throw new IllegalArgumentException("Insert a valid phone number!");
+            throw new IllegalArgumentException("Invalid phone number!");
         }
 
         for (Contact contact : contacts) {
-
             if (contact.getPhoneNumber().equals(phoneNumber)) {
                 return contact;
             }
@@ -77,40 +79,70 @@ public class ContactManager {
         return null;
     }
 
-    public void updatePhoneNumber(String name, String newPhone) {
+    // Update a contact's phone number
+    public void updatePhoneNumber(String name, String newPhoneNumber) {
 
-        if (name == null || name.isBlank()
-                || newPhone == null || newPhone.isBlank()) {
-
-            throw new IllegalArgumentException("Invalid name or phone number!");
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Invalid name!");
         }
 
-        for (Contact contact : contacts) {
+        if (newPhoneNumber == null || newPhoneNumber.isBlank()) {
+            throw new IllegalArgumentException("Invalid phone number!");
+        }
 
-            if (contact.getName().equals(name)) {
+        Contact contact = findContactByName(name);
 
-                for (Contact other : contacts) {
+        if (contact == null) {
+            throw new IllegalArgumentException("Contact not found!");
+        }
 
-                    if (!other.getName().equals(name)
-                            && other.getPhoneNumber().equals(newPhone)) {
-
-                        throw new IllegalArgumentException(
-                            "This phone number is already taken!");
-                    }
-                }
-
-                contact.setPhoneNumber(newPhone);
-                return;
+        for (Contact c : contacts) {
+            if (c.getPhoneNumber().equals(newPhoneNumber)) {
+                throw new IllegalArgumentException("Phone number already exists!");
             }
         }
 
-        throw new IllegalArgumentException("Contact not found!");
+        Contact updatedContact = new Contact(
+                contact.getName(),
+                newPhoneNumber,
+                contact.getEmail()
+        );
+
+        contacts.set(contacts.indexOf(contact), updatedContact);
     }
 
+    // Update a contact's email
+    public void updateEmail(String name, String newEmail) {
+
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Invalid name!");
+        }
+
+        if (newEmail == null || newEmail.isBlank()) {
+            throw new IllegalArgumentException("Invalid email!");
+        }
+
+        Contact contact = findContactByName(name);
+
+        if (contact == null) {
+            throw new IllegalArgumentException("Contact not found!");
+        }
+
+        Contact updatedContact = new Contact(
+                contact.getName(),
+                contact.getPhoneNumber(),
+                newEmail
+        );
+
+        contacts.set(contacts.indexOf(contact), updatedContact);
+    }
+
+    // Get the total number of contacts
     public int getContactCount() {
         return contacts.size();
     }
 
+    // Return a defensive copy of the contact list
     public ArrayList<Contact> getAllContacts() {
         return new ArrayList<>(contacts);
     }

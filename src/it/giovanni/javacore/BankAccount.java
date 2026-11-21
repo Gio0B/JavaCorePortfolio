@@ -10,8 +10,8 @@ public class BankAccount {
 			throw new IllegalArgumentException("Owner cannot be empty");
 		}
 		
-		if (initialBalance < 0) {
-			throw new IllegalArgumentException("Initial balance cannot be negative");
+		if (initialBalance < 0 || !Double.isFinite(initialBalance)) {
+			throw new IllegalArgumentException("Initial balance cannot be negative or infinite");
 		}
 		
 		this.owner = owner;
@@ -20,8 +20,12 @@ public class BankAccount {
 	
 	public boolean deposit(double amount) {
 		
-		if (amount <= 0) {
+		if (amount <= 0 || !Double.isFinite(amount)) {
 			throw new IllegalArgumentException("You cannot deposit a negative amount of money or no money at all!");
+		}
+		
+		if (!Double.isFinite(balance + amount)) {
+		    throw new IllegalArgumentException("Deposit exceeds maximum balance!");
 		}
 		
 		this.balance += amount;
@@ -30,7 +34,7 @@ public class BankAccount {
 	
 	public boolean withdraw(double amount) {
 		
-		if (amount <= 0) {
+		if (amount <= 0 || !Double.isFinite(amount)) {
 			throw new IllegalArgumentException("You cannot withdraw negative amount of money!");
 		}else if (amount > this.balance) {
 			throw new IllegalArgumentException("You cannot withdraw more money than you have!");
